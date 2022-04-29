@@ -1,3 +1,4 @@
+import { Console } from 'console'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -6,7 +7,22 @@ import Header from '../components/Header'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const [value, setValue] = useState("1")
+  const [valueL, setValueL] = useState(1);
+  const [valueP, setValueP] = useState(1);
+  const [valueS, setValueS] = useState(1);
+  const [valueV, setValueV] = useState(1);
+  const [result, setResult] = useState(0)
+
+  const updateInput = (e:  { target: HTMLInputElement }, setfunc: Function) => {
+    setfunc(e.target.value)
+  };
+  console.log(valueP)
+
+  const calculate = () => {
+    setResult((valueL * valueP * valueS * (valueV ** 2)) / 2);
+    console.log(result)
+  } 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,23 +32,16 @@ const Home: NextPage = () => {
       </Head>
       <Header/>
       <main className={styles.main}>
-        <span>L : </span><input type="number" name="" id=""  value={value} onClick={(e) => setValue((e.target as HTMLTextAreaElement).value + 1)} />
-        <span>ρ∞</span><input type="number" name="" id=""  />
-        <span>S</span><button>hesapla</button>
+        <h2>Taşıma Kuvveti</h2>
+        <span>Cl : taşıma katsayı</span><input onChange={(e) => updateInput(e, setValueL)} type="number" name="" id=""  value={valueL}  />
+        <span>ρ∞: hava yoğunluğu</span><input onChange={(e) => updateInput(e, setValueP)} type="number" name="" id=""  value={valueP}/>
+        <span>S: Kanat Alanı</span><input onChange={(e) => updateInput(e, setValueS)} type="number" name="" id=""  value={valueS}/>
+        <span>V: Hava hızı</span><input onChange={(e) => updateInput(e, setValueV)} type="number" name="" id=""  value={valueV}/>
+        <button onClick={() => calculate()}>hesapla</button>
+        <p>{result}</p>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      
     </div>
   )
 }

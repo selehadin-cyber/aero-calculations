@@ -2,7 +2,7 @@ import React from 'react'
 
 function Header() {
   return (
-    <div>Uçak Hesap Makinesi</div>
+    <h1>Uçak Hesap Makinesi</h1>
   )
 }
 
